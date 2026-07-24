@@ -354,3 +354,41 @@ resource "nsxt_policy_group" "contour_envoy" {
     }
   }
 }
+
+resource "nsxt_policy_group" "any_vks_cluster" {
+  nsx_id       = "ANY_VKS_CLUSTER"
+  display_name = "ANY_VKS_CLUSTER"
+
+  criteria {
+    condition {
+      member_type = "SegmentPort"
+      key         = "Tag"
+      operator    = "EQUALS"
+      value       = "capv.vmware.com/cluster.name|"
+    }
+  }
+}
+
+resource "nsxt_policy_group" "m01_sup01_mgmt_proxy_lb" {
+  nsx_id       = "M01_SUP01_MGMT_PROXY_LB"
+  display_name = "M01_SUP01_MGMT_PROXY_LB"
+  group_type   = "IPAddress"
+
+  criteria {
+    ipaddress_expression {
+      ip_addresses = [var.m01_sup01_mgmt_proxy_lb]
+    }
+  }
+}
+
+resource "nsxt_policy_group" "metrics_aggregator_lb" {
+  nsx_id       = "METRICS_AGGR_LB"
+  display_name = "METRICS_AGGR_LB"
+  group_type   = "IPAddress"
+
+  criteria {
+    ipaddress_expression {
+      ip_addresses = [var.metrics_aggregator_lb]
+    }
+  }
+}

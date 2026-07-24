@@ -19,6 +19,8 @@ variable "ext_192_168_4_0_22" {}
 variable "alpha_vpc_prod_snat" {}
 variable "vpc_kube_system_snat" {}
 variable "m01_sup01_kube_dns" {}
+variable "m01_sup01_mgmt_proxy_lb" {}
+variable "metrics_aggregator_lb" {}
 
 
  

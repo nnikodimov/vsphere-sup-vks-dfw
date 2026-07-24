@@ -196,6 +196,16 @@ resource "nsxt_policy_service" "tcp_8443" {
   }
 }
 
+resource "nsxt_policy_service" "tcp_30000_32767" {
+  description  = "Kubernetes NodePort"
+  display_name = "TCP-30000–32767"
+
+  l4_port_set_entry {
+    protocol          = "TCP"
+    destination_ports = ["30000-32767"]
+  }
+}
+
 resource "nsxt_policy_context_profile_custom_attribute" "custom_fqdn1" {
   key       = "DOMAIN_NAME"
   attribute = "*.broadcom.com"
