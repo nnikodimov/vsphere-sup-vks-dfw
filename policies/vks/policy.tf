@@ -48,7 +48,7 @@ resource "nsxt_policy_security_policy" "vks_policy" {
   }
 
   rule {
-    display_name       = "Lockdown outbound to Supervisor and Management (OUT)"
+    display_name       = "Lockdown outbound to System (OUT)"
     destination_groups = [local.groups["ext_192_168_4_0_22"]]
     action             = "DROP"
     direction          = "OUT"
