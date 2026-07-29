@@ -43,7 +43,7 @@ resource "nsxt_policy_group" "vcfops_cp" {
       member_type = "VirtualMachine"
       key         = "Name"
       operator    = "STARTSWITH"
-      value       = "vcfopscp"
+      value       = var.vcfops_cp
     }
   }
 }
@@ -57,7 +57,7 @@ resource "nsxt_policy_group" "vcf_a" {
       member_type = "VirtualMachine"
       key         = "Name"
       operator    = "STARTSWITH"
-      value       = "vcfa"
+      value       = var.vcfa
     }
   }
 }
@@ -71,7 +71,7 @@ resource "nsxt_policy_group" "m01_vc" {
       member_type = "VirtualMachine"
       key         = "Name"
       operator    = "STARTSWITH"
-      value       = "m01-vc01"
+      value       = var.m01_vc01
     }
   }
 }
@@ -85,7 +85,7 @@ resource "nsxt_policy_group" "m01_nsx" {
       member_type = "VirtualMachine"
       key         = "Name"
       operator    = "STARTSWITH"
-      value       = "m01-nsx01"
+      value       = var.m01_nsx01a
     }
   }
 }
@@ -100,7 +100,7 @@ resource "nsxt_policy_group" "m01_avi" {
       member_type = "VirtualMachine"
       key         = "Name"
       operator    = "STARTSWITH"
-      value       = "m01-avi01"
+      value       = var.m01_avi01
     }
   }
 }
@@ -131,35 +131,10 @@ resource "nsxt_policy_group" "m01_sup01_wld" {
       key         = "Tag"
       member_type = "SegmentPort"
       operator    = "EQUALS"
-      value       = "nsx-op/vm_namespace|kube-system"
+      value       = var.m01_sup01_wld_tag
     }
   }
 }
-
-#data "nsxt_policy_vm" "m01_sup01" {
-#  display_name = var.m01_sup01
-#}
-#
-#data "nsxt_policy_segment_port" "m01_sup01_mgmt_vif" {
-#  display_name = "supervisorcontrolplanevm (1).vmx@1995605456-4000"
-#}
-#
-#resource "nsxt_policy_vm_tags" "m01_sup01_tag" {
-#  instance_id = data.nsxt_policy_vm.m01_sup01.id
-#
-#  tag {
-#    scope = "m01"
-#    tag   = "sup01"
-#  }
-#  
-#  port {
-#    segment_path = data.nsxt_policy_segment_port.m01_sup01_mgmt_vif.path
-#      tag {
-#        scope = "m01-sup01"
-#        tag   = "mgmt-vif"
-#      }
-#    }
-#}
 
 resource "nsxt_policy_group" "m01_sup01_mgmt" {
   nsx_id       = "M01_SUP01_MGMT"
@@ -170,7 +145,7 @@ resource "nsxt_policy_group" "m01_sup01_mgmt" {
       key         = "Tag"
       member_type = "DVPort"
       operator    = "EQUALS"
-      value       = "m01-sup01|mgmt-vif"
+      value       = var.m01_sup01_mgmt_vif_tag
     }
   }
 }
@@ -235,7 +210,7 @@ resource "nsxt_policy_group" "ext_192_168_4_0_22" {
   }
 }
 
-resource "nsxt_policy_group" "cci-ns-controller-manager" {
+resource "nsxt_policy_group" "cci_ns_controller_manager" {
   nsx_id       = "CCI_NS_CTL_MANAGER"
   display_name = "CCI_NS_CTL_MANAGER"
 
@@ -244,12 +219,12 @@ resource "nsxt_policy_group" "cci-ns-controller-manager" {
       member_type = "VirtualMachine"
       key         = "Name"
       operator    = "STARTSWITH"
-      value       = "cci-ns-controller-manager"
+      value       = var.cci_ns_controller_manager
     }
   }
 }
 
-resource "nsxt_policy_group" "configuration-service-controller-manager" {
+resource "nsxt_policy_group" "configuration_service_controller_manager" {
   nsx_id       = "CFG_SVC_CTL_MANAGER"
   display_name = "CFG_SVC_CTL_MANAGER"
 
@@ -258,7 +233,7 @@ resource "nsxt_policy_group" "configuration-service-controller-manager" {
       member_type = "VirtualMachine"
       key         = "Name"
       operator    = "STARTSWITH"
-      value       = "configuration-service-controller-manager"
+      value       = var.configuration_service_controller_manager
     }
   }
 }
@@ -287,7 +262,7 @@ resource "nsxt_policy_group" "vpc_kube_system_snat" {
   }
 }
 
-resource "nsxt_policy_group" "auto-attach" {
+resource "nsxt_policy_group" "auto_attach" {
   nsx_id       = "AUTO_ATTACH"
   display_name = "AUTO_ATTACH"
 
@@ -296,12 +271,12 @@ resource "nsxt_policy_group" "auto-attach" {
       member_type = "VirtualMachine"
       key         = "Name"
       operator    = "STARTSWITH"
-      value       = "auto-attach"
+      value       = var.auto_attach
     }
   }
 }
 
-resource "nsxt_policy_group" "metrics-aggregator" {
+resource "nsxt_policy_group" "metrics_aggregator" {
   nsx_id       = "METRICS_AGGR"
   display_name = "METRICS_AGGR"
 
@@ -310,7 +285,7 @@ resource "nsxt_policy_group" "metrics-aggregator" {
       member_type = "VirtualMachine"
       key         = "Name"
       operator    = "STARTSWITH"
-      value       = "metrics-aggregator"
+      value       = var.metrics_aggregator
     }
   }
 }
@@ -336,7 +311,7 @@ resource "nsxt_policy_group" "harbor" {
       member_type = "VirtualMachine"
       key         = "Name"
       operator    = "STARTSWITH"
-      value       = "harbor"
+      value       = var.harbor
     }
   }
 }
@@ -350,7 +325,7 @@ resource "nsxt_policy_group" "contour_envoy" {
       member_type = "VirtualMachine"
       key         = "Name"
       operator    = "STARTSWITH"
-      value       = "envoy"
+      value       = var.contour_envoy
     }
   }
 }
@@ -364,7 +339,7 @@ resource "nsxt_policy_group" "any_vks_cluster" {
       member_type = "SegmentPort"
       key         = "Tag"
       operator    = "EQUALS"
-      value       = "capv.vmware.com/cluster.name|"
+      value       = var.vks_cluster_tag
     }
   }
 }

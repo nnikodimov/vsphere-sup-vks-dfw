@@ -52,7 +52,7 @@ resource "nsxt_policy_service" "tcp_1234_1235" {
 
   l4_port_set_entry {
     protocol          = "TCP"
-    destination_ports = ["1234","1235"]
+    destination_ports = ["1234", "1235"]
   }
 }
 
@@ -245,7 +245,7 @@ resource "nsxt_policy_context_profile" "internet_fqdns" {
   display_name = "INTERNET_FQDNS"
   description  = "VCF upgrade and patch binaries"
   domain_name {
-     value       = ["*.broadcom.com", "*.vmware.com", "*.broadcom.net", "projects.packages.broadcom.com", "packages.broadcom.com", "projects.registry.vmware.com", "*.tmc.tanzu.broadcom.com"]
+    value = ["*.broadcom.com", "*.vmware.com", "*.broadcom.net", "projects.packages.broadcom.com", "packages.broadcom.com", "projects.registry.vmware.com", "*.tmc.tanzu.broadcom.com"]
   }
-  depends_on = [nsxt_policy_context_profile_custom_attribute.custom_fqdn1,nsxt_policy_context_profile_custom_attribute.custom_fqdn2,nsxt_policy_context_profile_custom_attribute.custom_fqdn3,nsxt_policy_context_profile_custom_attribute.custom_fqdn4,nsxt_policy_context_profile_custom_attribute.custom_fqdn5,nsxt_policy_context_profile_custom_attribute.custom_fqdn6,nsxt_policy_context_profile_custom_attribute.custom_fqdn7]
+  depends_on = [nsxt_policy_context_profile_custom_attribute.custom_fqdn1, nsxt_policy_context_profile_custom_attribute.custom_fqdn2, nsxt_policy_context_profile_custom_attribute.custom_fqdn3, nsxt_policy_context_profile_custom_attribute.custom_fqdn4, nsxt_policy_context_profile_custom_attribute.custom_fqdn5, nsxt_policy_context_profile_custom_attribute.custom_fqdn6, nsxt_policy_context_profile_custom_attribute.custom_fqdn7]
 }

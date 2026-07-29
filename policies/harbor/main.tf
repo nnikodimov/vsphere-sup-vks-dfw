@@ -1,9 +1,12 @@
-# Terrafrom Initialization
 terraform {
   required_providers {
     nsxt = {
       source = "vmware/nsxt"
     }
+  }
+
+  backend "local" {
+    path = "terraform.tfstate"
   }
 }
 
@@ -16,4 +19,12 @@ provider "nsxt" {
   retry_min_delay       = 500
   retry_max_delay       = 5000
   retry_on_status_codes = [429]
+}
+
+data "terraform_remote_state" "foundation" {
+  backend = "local"
+
+  config = {
+    path = "${path.module}/../../foundation/terraform.tfstate"
+  }
 }
