@@ -33,11 +33,12 @@ resource "nsxt_policy_security_policy" "vks_policy" {
   }
 
   rule {
-    display_name = "VKS DHCP (IN/OUT)"
-    services     = [local.services["dhcp_server"], local.services["dhcp_client"]]
-    action       = "ALLOW"
-    direction    = "IN_OUT"
-    logged       = false
+    display_name       = "VKS DHCP (OUT)"
+    destination_groups = [local.groups["dhcp_svc"]]
+    services           = [local.services["dhcp_server"]]
+    action             = "ALLOW"
+    direction          = "OUT"
+    logged             = false
   }
 
   rule {

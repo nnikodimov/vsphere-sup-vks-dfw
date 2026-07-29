@@ -33,11 +33,11 @@ resource "nsxt_policy_security_policy" "m01_sup01_mgmt_policy" {
   }
 
   rule {
-    display_name       = "Supervisor DHCP (IN/OUT)"
+    display_name       = "Supervisor DHCP (OUT)"
     destination_groups = [local.groups["dhcp_svc"]]
-    services           = [local.services["dhcp_server"], local.services["dhcp_client"]]
+    services           = [local.services["dhcp_server"]]
     action             = "ALLOW"
-    direction          = "IN_OUT"
+    direction          = "OUT"
     logged             = false
   }
 
