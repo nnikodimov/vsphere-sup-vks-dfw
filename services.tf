@@ -221,11 +221,31 @@ resource "nsxt_policy_context_profile_custom_attribute" "custom_fqdn3" {
   attribute = "*.broadcom.net"
 }
 
+resource "nsxt_policy_context_profile_custom_attribute" "custom_fqdn4" {
+  key       = "DOMAIN_NAME"
+  attribute = "projects.packages.broadcom.com"
+}
+
+resource "nsxt_policy_context_profile_custom_attribute" "custom_fqdn5" {
+  key       = "DOMAIN_NAME"
+  attribute = "packages.broadcom.com"
+}
+
+resource "nsxt_policy_context_profile_custom_attribute" "custom_fqdn6" {
+  key       = "DOMAIN_NAME"
+  attribute = "projects.registry.vmware.com"
+}
+
+resource "nsxt_policy_context_profile_custom_attribute" "custom_fqdn7" {
+  key       = "DOMAIN_NAME"
+  attribute = "*.tmc.tanzu.broadcom.com"
+}
+
 resource "nsxt_policy_context_profile" "internet_fqdns" {
   display_name = "INTERNET_FQDNS"
   description  = "VCF upgrade and patch binaries"
   domain_name {
-     value       = ["*.broadcom.com", "*.vmware.com", "*.broadcom.net"]
+     value       = ["*.broadcom.com", "*.vmware.com", "*.broadcom.net", "projects.packages.broadcom.com", "packages.broadcom.com", "projects.registry.vmware.com", "*.tmc.tanzu.broadcom.com"]
   }
-  depends_on = [nsxt_policy_context_profile_custom_attribute.custom_fqdn1,nsxt_policy_context_profile_custom_attribute.custom_fqdn2,nsxt_policy_context_profile_custom_attribute.custom_fqdn3]
+  depends_on = [nsxt_policy_context_profile_custom_attribute.custom_fqdn1,nsxt_policy_context_profile_custom_attribute.custom_fqdn2,nsxt_policy_context_profile_custom_attribute.custom_fqdn3,nsxt_policy_context_profile_custom_attribute.custom_fqdn4,nsxt_policy_context_profile_custom_attribute.custom_fqdn5,nsxt_policy_context_profile_custom_attribute.custom_fqdn6,nsxt_policy_context_profile_custom_attribute.custom_fqdn7]
 }
