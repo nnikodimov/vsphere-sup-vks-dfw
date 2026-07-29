@@ -10,7 +10,7 @@ resource "nsxt_policy_security_policy" "m01_sup01_wld_policy" {
   stateful        = true
   tcp_strict      = true
   scope           = [local.groups["m01_sup01_wld"]]
-  sequence_number = 2
+  sequence_number = 3
 
   rule {
     display_name  = "Supervisor Infra Services (IN)"

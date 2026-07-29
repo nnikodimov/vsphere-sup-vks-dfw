@@ -18,6 +18,7 @@ own state file and can be applied on its own.
 ```
 foundation/           groups, services, context profiles (shared building blocks)
 policies/
+  infrastructure/     DNS/NTP/DHCP allow rules, unscoped (applies firewall-wide)
   supervisor-mgmt/    locks down the Supervisor management network
   supervisor-wld/     locks down the Supervisor workload network
   supervisor-svc/     locks down auto-attach/CCI/configuration/metrics services
@@ -31,6 +32,15 @@ groups/services/context-profiles they need from the `foundation` layer via a
 `terraform_remote_state` data source — they never reference `foundation`'s
 resources directly, so they can be planned/applied independently as long as
 `foundation` has been applied at least once.
+
+`infrastructure` has no `scope`, so its DNS/NTP/DHCP allow rules apply to
+every group protected by any of the other policies. Its `sequence_number` (1)
+is lower than every other policy's, so it's evaluated first within the
+`Environment` category — this matters because the other policies each end in
+a DROP-all lockdown rule scoped to their own group, which would otherwise
+shadow the DNS/NTP/DHCP allows. Apply `infrastructure` before (or alongside)
+the other policies for the first time; skipping it leaves DNS/NTP/DHCP
+unreachable for any group with a lockdown rule already in place.
 
 Every variable is documented in that layer's `variables.tf` — see there for
 what each group/service identifier represents.
@@ -69,11 +79,16 @@ terraform init
 terraform apply
 ```
 
-Then apply any DFW policy independently, e.g. just the Supervisor Management
-policy:
+Apply the infrastructure policy next (see the note above on why it goes
+before the others), then any DFW policy independently, e.g. just the
+Supervisor Management policy:
 
 ```
-cd policies/supervisor-mgmt
+cd policies/infrastructure
+terraform init
+terraform apply
+
+cd ../supervisor-mgmt
 terraform init
 terraform apply
 ```

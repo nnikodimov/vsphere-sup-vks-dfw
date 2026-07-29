@@ -9,7 +9,7 @@ resource "nsxt_policy_security_policy" "m01_sup01_svc_policy" {
   locked          = false
   stateful        = true
   tcp_strict      = true
-  sequence_number = 3
+  sequence_number = 4
 
   rule {
     display_name       = "Auto-Attach Service DNS (OUT)"

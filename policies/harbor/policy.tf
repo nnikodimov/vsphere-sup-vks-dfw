@@ -10,7 +10,7 @@ resource "nsxt_policy_security_policy" "harbor_svc_policy" {
   stateful        = true
   tcp_strict      = true
   scope           = [local.groups["harbor"]]
-  sequence_number = 4
+  sequence_number = 5
 
   rule {
     display_name       = "Harbor DNS (OUT)"

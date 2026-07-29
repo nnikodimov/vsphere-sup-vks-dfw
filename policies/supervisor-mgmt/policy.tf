@@ -1,7 +1,6 @@
 locals {
   groups   = data.terraform_remote_state.foundation.outputs.group_paths
   services = data.terraform_remote_state.foundation.outputs.service_paths
-  profiles = data.terraform_remote_state.foundation.outputs.context_profile_paths
 }
 
 resource "nsxt_policy_security_policy" "m01_sup01_mgmt_policy" {
@@ -11,44 +10,7 @@ resource "nsxt_policy_security_policy" "m01_sup01_mgmt_policy" {
   stateful        = true
   tcp_strict      = true
   scope           = [local.groups["m01_sup01_mgmt"]]
-  sequence_number = 1
-
-  rule {
-    display_name       = "Supervisor DNS (OUT)"
-    destination_groups = [local.groups["dns_svc"]]
-    services           = [local.services["dns_udp"], local.services["dns_tcp"]]
-    profiles           = [local.profiles["cxt_dns"]]
-    action             = "ALLOW"
-    direction          = "OUT"
-    logged             = false
-  }
-
-  rule {
-    display_name       = "Supervisor NTP (OUT)"
-    destination_groups = [local.groups["ntp_svc"]]
-    services           = [local.services["ntp"]]
-    action             = "ALLOW"
-    direction          = "OUT"
-    logged             = false
-  }
-
-  rule {
-    display_name       = "Supervisor DHCP (OUT)"
-    destination_groups = [local.groups["dhcp_svc"]]
-    services           = [local.services["dhcp_server"]]
-    action             = "ALLOW"
-    direction          = "OUT"
-    logged             = false
-  }
-
-  rule {
-    display_name = "Broadcom Internet repos (OUT)"
-    services     = [local.services["https"]]
-    profiles     = [local.profiles["internet_fqdns"]]
-    action       = "ALLOW"
-    direction    = "OUT"
-    logged       = false
-  }
+  sequence_number = 2
 
   rule {
     display_name       = "VCF Management (OUT)"
