@@ -4,7 +4,7 @@ resource "nsxt_policy_security_policy" "m01_sup01_mgmt_policy" {
   locked               = false
   stateful             = true
   tcp_strict           = true
-  scope              = [nsxt_policy_group.m01_sup01_mgmt.path]
+  scope                = [nsxt_policy_group.m01_sup01_mgmt.path]
   sequence_number      = 1
 
   rule {
@@ -104,7 +104,7 @@ resource "nsxt_policy_security_policy" "m01_sup01_wld_policy" {
   locked               = false
   stateful             = true
   tcp_strict           = true
-  scope              = [nsxt_policy_group.m01_sup01_wld.path]
+  scope                = [nsxt_policy_group.m01_sup01_wld.path]
   sequence_number      = 2
 
   rule {
@@ -115,15 +115,6 @@ resource "nsxt_policy_security_policy" "m01_sup01_wld_policy" {
 	direction          = "IN"
     logged             = false
   }
-  
-#  rule {
-#    display_name       = "Supervisor Services (IN)"
-#    source_groups      = [nsxt_policy_group.alpha_vpc_prod_snat.path]
-#    services           = [nsxt_policy_service.tcp_6443.path,nsxt_policy_service.tcp_10091_10092.path,nsxt_policy_service.tcp_10093.path]
-#    action             = "ALLOW"
-#	direction          = "IN"
-#    logged             = false
-#  }
   
   rule {
     display_name       = "Supervisor and Image Proxy LB Services (Out)"
@@ -263,7 +254,7 @@ resource "nsxt_policy_security_policy" "harbor_svc_policy" {
   locked               = false
   stateful             = true
   tcp_strict           = true
-  scope              = [nsxt_policy_group.harbor.path]
+  scope                = [nsxt_policy_group.harbor.path]
   sequence_number      = 4
   
   rule {
@@ -312,12 +303,12 @@ resource "nsxt_policy_security_policy" "harbor_svc_policy" {
 }
 
 resource "nsxt_policy_security_policy" "vks_policy" {
-  display_name         = "VKS Clusters Policy"
+  display_name         = "VKS Clusters Control Plane Policy"
   category             = "Environment"
   locked               = false
   stateful             = true
   tcp_strict           = true
-  scope              = [nsxt_policy_group.any_vks_cluster.path]
+  scope                = [nsxt_policy_group.any_vks_cluster.path]
   sequence_number      = 5
   
   rule {
@@ -365,15 +356,6 @@ resource "nsxt_policy_security_policy" "vks_policy" {
     logged             = false
   }
   
-#  rule {
-#    display_name       = "Kubernetes API (IN)"
-#    source_groups      = [nsxt_policy_group.m01_avi_se_snat.path]
-#    services           = [nsxt_policy_service.tcp_6443.path]
-#    action             = "ALLOW"
-#	direction          = "IN"
-#    logged             = false
-#  }
-  
   rule {
     display_name       = "Supervisor Management Proxy (OUT)"
 	destination_groups = [nsxt_policy_group.m01_sup01_mgmt_proxy_lb.path]
@@ -391,22 +373,4 @@ resource "nsxt_policy_security_policy" "vks_policy" {
 	direction          = "OUT"
     logged             = false
   }
- 
-  
-#  rule {
-#    display_name       = "VKS Clusters Intra-Nodes (TEMP)"
-#    source_groups      = [nsxt_policy_group.any_vks_cluster.path]
-#	destination_groups = [nsxt_policy_group.any_vks_cluster.path]
-#    action             = "ALLOW"
-#	direction          = "IN_OUT"
-#    logged             = false
-#  }
-#  
-#  rule {
-#    display_name       = "VKS Clusters Catch-All (IN/OUT)"
-#    action             = "DROP"
-#	direction          = "IN_OUT"
-#    logged             = true
-#	log_label          = "vks_clusters"
-#  }
 }
