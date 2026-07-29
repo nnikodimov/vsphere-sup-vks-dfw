@@ -18,6 +18,10 @@ data "nsxt_policy_service" "dhcp_server" {
   display_name = "DHCP-Server"
 }
 
+data "nsxt_policy_service" "dhcp_client" {
+  display_name = "DHCP-Client"
+}
+
 data "nsxt_policy_service" "https" {
   display_name = "HTTPS"
 }

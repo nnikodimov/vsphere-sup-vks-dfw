@@ -40,6 +40,7 @@ output "service_paths" {
     dns_tcp                   = data.nsxt_policy_service.dns_tcp.path
     dns_udp                   = data.nsxt_policy_service.dns_udp.path
     dhcp_server               = data.nsxt_policy_service.dhcp_server.path
+    dhcp_client               = data.nsxt_policy_service.dhcp_client.path
     https                     = data.nsxt_policy_service.https.path
     http                      = data.nsxt_policy_service.http.path
     ssh                       = data.nsxt_policy_service.ssh.path

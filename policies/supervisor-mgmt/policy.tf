@@ -33,6 +33,15 @@ resource "nsxt_policy_security_policy" "m01_sup01_mgmt_policy" {
   }
 
   rule {
+    display_name       = "Supervisor DHCP (IN/OUT)"
+    destination_groups = [local.groups["dhcp_svc"]]
+    services           = [local.services["dhcp_server"], local.services["dhcp_client"]]
+    action             = "ALLOW"
+    direction          = "IN_OUT"
+    logged             = false
+  }
+
+  rule {
     display_name = "Broadcom Internet repos (OUT)"
     services     = [local.services["https"]]
     profiles     = [local.profiles["internet_fqdns"]]
