@@ -54,7 +54,7 @@ resource "nsxt_policy_security_policy" "m01_sup01_svc_policy" {
   rule {
     display_name  = "Configuration Service (IN)"
     source_groups = [local.groups["vpc_kube_system_snat"]]
-    services      = [local.services["tcp_9443"]]
+    services      = [local.services["tcp_9443"], local.services["tcp_8081"]]
     action        = "ALLOW"
     scope         = [local.groups["configuration_service_controller_manager"]]
     direction     = "IN"

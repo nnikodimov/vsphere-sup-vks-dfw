@@ -51,7 +51,7 @@ resource "nsxt_policy_security_policy" "m01_sup01_wld_policy" {
   rule {
     display_name       = "Configuration Orchestration (OUT)"
     destination_groups = [local.groups["configuration_service_controller_manager"]]
-    services           = [local.services["tcp_9443"]]
+    services           = [local.services["tcp_9443"], local.services["tcp_8081"]]
     action             = "ALLOW"
     direction          = "OUT"
     logged             = false

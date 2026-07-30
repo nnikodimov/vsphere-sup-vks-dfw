@@ -53,6 +53,7 @@ output "service_paths" {
     tcp_10250                 = nsxt_policy_service.tcp_10250.path
     tcp_8053                  = nsxt_policy_service.tcp_8053.path
     tcp_9443                  = nsxt_policy_service.tcp_9443.path
+    tcp_8081                  = nsxt_policy_service.tcp_8081.path
     tcp_10091_10092           = nsxt_policy_service.tcp_10091_10092.path
     tcp_10093                 = nsxt_policy_service.tcp_10093.path
     tcp_10349_10350_10351     = nsxt_policy_service.tcp_10349_10350_10351.path

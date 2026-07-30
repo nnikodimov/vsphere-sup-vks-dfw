@@ -52,6 +52,6 @@ resource "nsxt_policy_security_policy" "vks_policy" {
     destination_groups = [local.groups["ext_192_168_4_0_22"]]
     action             = "DROP"
     direction          = "OUT"
-    logged             = false
+    logged             = true
   }
 }

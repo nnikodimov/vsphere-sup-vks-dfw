@@ -110,6 +110,16 @@ resource "nsxt_policy_service" "tcp_9443" {
   }
 }
 
+resource "nsxt_policy_service" "tcp_8081" {
+  description  = "vSphere IaaS Configuration Service Health"
+  display_name = "TCP-8081"
+
+  l4_port_set_entry {
+    protocol          = "TCP"
+    destination_ports = ["8081"]
+  }
+}
+
 resource "nsxt_policy_service" "tcp_10091_10092" {
   description  = "Supervisor image/registry proxy"
   display_name = "TCP-10091_10092"
