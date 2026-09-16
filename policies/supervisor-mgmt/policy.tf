@@ -1,6 +1,6 @@
 locals {
-  groups   = data.terraform_remote_state.foundation.outputs.group_paths
-  services = data.terraform_remote_state.foundation.outputs.service_paths
+  groups   = var.groups
+  services = var.services
 }
 
 resource "nsxt_policy_security_policy" "m01_sup01_mgmt_policy" {

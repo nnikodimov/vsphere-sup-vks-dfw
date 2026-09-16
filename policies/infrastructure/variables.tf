@@ -1,15 +1,14 @@
-variable "nsx_manager" {
-  type        = string
-  description = "Hostname or IP of the NSX Manager the provider connects to."
+variable "groups" {
+  type        = map(string)
+  description = "Map of NSX policy group name to path, from the foundation module."
 }
 
-variable "nsx_username" {
-  type        = string
-  description = "NSX Manager username used by the provider. Set in secrets.auto.tfvars, not committed."
+variable "services" {
+  type        = map(string)
+  description = "Map of NSX policy service name to path, from the foundation module."
 }
 
-variable "nsx_password" {
-  type        = string
-  sensitive   = true
-  description = "NSX Manager password used by the provider. Set in secrets.auto.tfvars, not committed."
+variable "profiles" {
+  type        = map(string)
+  description = "Map of NSX context profile name to path, from the foundation module."
 }

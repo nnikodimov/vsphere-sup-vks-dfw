@@ -1,7 +1,7 @@
 locals {
-  groups   = data.terraform_remote_state.foundation.outputs.group_paths
-  services = data.terraform_remote_state.foundation.outputs.service_paths
-  profiles = data.terraform_remote_state.foundation.outputs.context_profile_paths
+  groups   = var.groups
+  services = var.services
+  profiles = var.profiles
 }
 
 resource "nsxt_policy_security_policy" "infrastructure_policy" {

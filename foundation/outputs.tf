@@ -1,5 +1,5 @@
 output "group_paths" {
-  description = "Map of NSX policy group name to path, consumed by the policy layers via terraform_remote_state."
+  description = "Map of NSX policy group name to path, consumed by the policy modules as module input variables."
   value = {
     dns_svc                                  = nsxt_policy_group.dns_svc.path
     ntp_svc                                  = nsxt_policy_group.ntp_svc.path
@@ -33,7 +33,7 @@ output "group_paths" {
 }
 
 output "service_paths" {
-  description = "Map of NSX policy service name to path, consumed by the policy layers via terraform_remote_state."
+  description = "Map of NSX policy service name to path, consumed by the policy modules as module input variables."
   value = {
     icmp_all                  = data.nsxt_policy_service.icmp_all.path
     icmp_echo                 = data.nsxt_policy_service.icmp_echo.path
@@ -68,7 +68,7 @@ output "service_paths" {
 }
 
 output "context_profile_paths" {
-  description = "Map of NSX context profile name to path, consumed by the policy layers via terraform_remote_state."
+  description = "Map of NSX context profile name to path, consumed by the policy modules as module input variables."
   value = {
     cxt_dns        = data.nsxt_policy_context_profile.cxt_dns.path
     internet_fqdns = nsxt_policy_context_profile.internet_fqdns.path
