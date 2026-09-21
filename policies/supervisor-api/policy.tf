@@ -114,22 +114,24 @@ resource "nsxt_policy_gateway_policy" "supervisor_api_policy" {
   }
 
   rule {
-    display_name  = "Kubernetes API Allowlist (IN/OUT)"
-    source_groups = [nsxt_policy_group.m01_sup01_api_clients.path, nsxt_policy_group.prj_ext_ip_block.path]
-    services      = [nsxt_policy_service.tcp_6443.path]
-    scope         = [var.transit_gateway_path]
-    action        = "ALLOW"
-    direction     = "IN_OUT"
-    logged        = false
+    display_name       = "Kubernetes API Allowlist (IN/OUT)"
+    source_groups      = [nsxt_policy_group.m01_sup01_api_clients.path, nsxt_policy_group.prj_ext_ip_block.path]
+    destination_groups = [nsxt_policy_group.m01_sup01_api_fqdn.path]
+    services           = [nsxt_policy_service.tcp_6443.path]
+    scope              = [var.transit_gateway_path]
+    action             = "ALLOW"
+    direction          = "IN"
+    logged             = false
   }
 
   rule {
-    display_name = "Kubernetes API Lockdown (IN/OUT)"
-    services     = [nsxt_policy_service.tcp_6443.path]
-    scope        = [var.transit_gateway_path]
-    action       = "DROP"
-    direction    = "IN_OUT"
-    logged       = true
-    log_label    = "tcp_6443"
+    display_name       = "Kubernetes API Lockdown (IN/OUT)"
+    destination_groups = [nsxt_policy_group.m01_sup01_api_fqdn.path]
+    services           = [nsxt_policy_service.tcp_6443.path]
+    scope              = [var.transit_gateway_path]
+    action             = "DROP"
+    direction          = "IN"
+    logged             = true
+    log_label          = "tcp_6443"
   }
 }
