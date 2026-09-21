@@ -27,8 +27,6 @@ resource "nsxt_policy_security_policy" "vks01_cluster_policy" {
     display_name  = "VPC LB SNAT Inbound (IN)"
     source_groups = [nsxt_policy_group.vpc_lb_snat.path]
     services = [
-      data.nsxt_policy_service.https.path,
-      nsxt_policy_service.tcp_6443.path,
       nsxt_policy_service.tcp_30000_32767.path,
       nsxt_policy_service.tcp_61000_62000.path,
     ]

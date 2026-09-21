@@ -20,8 +20,8 @@ resource "nsxt_policy_group" "vks01_segment" {
 }
 
 resource "nsxt_policy_group" "vpc_lb_snat" {
-  nsx_id       = "VPC_LB_SNAT"
-  display_name = "vpc-lb-snat"
+  nsx_id       = "VKS01_VPC_LB_SNAT"
+  display_name = "vks01-vpc-lb-snat"
   group_type   = "IPAddress"
 
   dynamic "context" {
