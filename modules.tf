@@ -22,6 +22,8 @@ module "foundation" {
   metrics_aggregator_lb                    = var.metrics_aggregator_lb
   m01_sup01_wld_tag                        = var.m01_sup01_wld_tag
   m01_sup01_mgmt_vif_tag                   = var.m01_sup01_mgmt_vif_tag
+  m01_sup01_ctrl_plane_vm                  = var.m01_sup01_ctrl_plane_vm
+  m01_sup01_mgmt_segment                   = var.m01_sup01_mgmt_segment
   cci_ns_controller_manager                = var.cci_ns_controller_manager
   configuration_service_controller_manager = var.configuration_service_controller_manager
   auto_attach                              = var.auto_attach
