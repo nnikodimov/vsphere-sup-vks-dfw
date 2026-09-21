@@ -124,14 +124,19 @@ variable "m01_sup01_ctrl_plane_vm" {
   description = "Display name of the Supervisor control plane VM whose management network adapter is tagged with m01_sup01_mgmt_vif_tag."
 }
 
-variable "m01_sup01_mgmt_segment" {
+variable "m01_sup01_mgmt_vpc" {
   type        = string
-  description = "Display name of the segment the Supervisor control plane VM's management network adapter is attached to."
+  description = "Display name of the VPC containing the subnet the Supervisor control plane VM's management network adapter is attached to."
+}
+
+variable "m01_sup01_mgmt_subnet" {
+  type        = string
+  description = "Display name of the VPC subnet the Supervisor control plane VM's management network adapter is attached to."
 }
 
 variable "m01_sup01_mgmt_project_id" {
   type        = string
-  description = "ID of the NSX Project (e.g. \"system\") containing the Supervisor control plane VM and its management segment."
+  description = "ID of the NSX Project (e.g. \"system\") containing the Supervisor control plane VM, its VPC, and its management subnet."
 }
 
 variable "cci_ns_controller_manager" {
