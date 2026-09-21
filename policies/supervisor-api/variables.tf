@@ -1,6 +1,6 @@
 variable "nsx_project_id" {
   type        = string
-  description = "ID of the NSX Project the Supervisor API groups and policy are created in (e.g. \"system\")."
+  description = "ID of the NSX Project the Supervisor API groups and policy are created in (e.g. \"default\")."
 }
 
 variable "transit_gateway_path" {

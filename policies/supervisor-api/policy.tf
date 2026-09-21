@@ -88,7 +88,7 @@ resource "nsxt_policy_gateway_policy" "supervisor_api_policy" {
   }
 
   rule {
-    display_name       = "Supervisor API Lockdown (IN)"
+    display_name       = "Supervisor API HTTPS Lockdown (IN)"
     destination_groups = [nsxt_policy_group.m01_sup01_api_fqdn.path]
     services           = [data.nsxt_policy_service.https.path]
     scope              = [var.transit_gateway_path]
@@ -100,7 +100,7 @@ resource "nsxt_policy_gateway_policy" "supervisor_api_policy" {
 
   rule {
     display_name  = "Kubernetes API Allowlist (IN/OUT)"
-    source_groups = [nsxt_policy_group.prj_ext_ip_block.path]
+    source_groups = [nsxt_policy_group.m01_sup01_api_clients.path, nsxt_policy_group.prj_ext_ip_block.path]
     services      = [nsxt_policy_service.tcp_6443.path]
     scope         = [var.transit_gateway_path]
     action        = "ALLOW"
