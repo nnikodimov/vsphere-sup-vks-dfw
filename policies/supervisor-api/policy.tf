@@ -2,8 +2,18 @@ data "nsxt_policy_service" "https" {
   display_name = "HTTPS"
 }
 
-data "nsxt_policy_service" "tcp_6443" {
+resource "nsxt_policy_service" "tcp_6443" {
   display_name = "TCP-6443"
+  description  = "Kubernetes API"
+
+  context {
+    project_id = var.nsx_project_id
+  }
+
+  l4_port_set_entry {
+    protocol          = "TCP"
+    destination_ports = ["6443"]
+  }
 }
 
 resource "nsxt_policy_group" "m01_sup01_api_clients" {
@@ -91,7 +101,7 @@ resource "nsxt_policy_gateway_policy" "supervisor_api_policy" {
   rule {
     display_name  = "Kubernetes API Allowlist (IN/OUT)"
     source_groups = [nsxt_policy_group.prj_ext_ip_block.path]
-    services      = [data.nsxt_policy_service.tcp_6443.path]
+    services      = [nsxt_policy_service.tcp_6443.path]
     scope         = [var.transit_gateway_path]
     action        = "ALLOW"
     direction     = "IN_OUT"
@@ -100,7 +110,7 @@ resource "nsxt_policy_gateway_policy" "supervisor_api_policy" {
 
   rule {
     display_name = "Kubernetes API Lockdown (IN/OUT)"
-    services     = [data.nsxt_policy_service.tcp_6443.path]
+    services     = [nsxt_policy_service.tcp_6443.path]
     scope        = [var.transit_gateway_path]
     action       = "DROP"
     direction    = "IN_OUT"
