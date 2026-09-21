@@ -12,7 +12,9 @@ they share one state file but can still be planned/applied individually with
 - Network access from wherever you run Terraform to the NSX Manager in
   `terraform.tfvars` (`nsx_manager`)
 - An NSX Manager account with permission to manage Policy groups, services,
-  context profiles, and distributed firewall security policies
+  context profiles, distributed firewall security policies, and (for
+  `supervisor-api`) gateway firewall policies on the Transit Gateway of the
+  NSX Project identified by `nsx_project_id`
 
 ## Layout
 
@@ -29,6 +31,7 @@ policies/
   supervisor-svc/     locks down auto-attach/CCI/configuration/metrics services
   harbor/             locks down the Harbor registry nodes
   vks/                locks down VKS cluster control-plane traffic
+  supervisor-api/     Transit Gateway firewall policy for the Supervisor API FQDN
 ```
 
 Each directory under `foundation/` and `policies/` is a child module with no
@@ -96,6 +99,7 @@ terraform apply -target=module.supervisor-wld
 terraform apply -target=module.supervisor-svc
 terraform apply -target=module.harbor
 terraform apply -target=module.vks
+terraform apply -target=module.supervisor-api
 ```
 
 `-target` still evaluates the whole configuration graph, so it will pull in

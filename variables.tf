@@ -153,3 +153,18 @@ variable "vks_cluster_tag" {
   type        = string
   description = "SegmentPort tag (\"scope|\") applied to any VKS cluster node port, matched by the any_vks_cluster group."
 }
+
+variable "nsx_project_id" {
+  type        = string
+  description = "ID of the NSX Project the Supervisor API groups and gateway firewall policy are created in (e.g. \"system\")."
+}
+
+variable "m01_sup01_api_clients" {
+  type        = list(string)
+  description = "IP addresses allowed to reach the Supervisor API over HTTPS through the Transit Gateway firewall, matched by the m01_sup01_api_clients group."
+}
+
+variable "transit_gateway_path" {
+  type        = string
+  description = "NSX policy path of the Transit Gateway the Supervisor API gateway firewall policy rules are scoped to, e.g. \"/orgs/default/projects/system/transit-gateways/default--<uuid>\"."
+}

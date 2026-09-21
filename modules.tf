@@ -73,3 +73,12 @@ module "vks" {
   groups   = module.foundation.group_paths
   services = module.foundation.service_paths
 }
+
+module "supervisor-api" {
+  source = "./policies/supervisor-api"
+
+  nsx_project_id       = var.nsx_project_id
+  transit_gateway_path = var.transit_gateway_path
+  api_clients          = var.m01_sup01_api_clients
+  api_fqdn_ip          = var.m01_sup01_api
+}
