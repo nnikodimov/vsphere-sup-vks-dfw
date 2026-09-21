@@ -103,26 +103,6 @@ variable "m01_sup01_mgmt_vif_tag" {
   description = "DVPort tag (\"scope|value\") applied to the Supervisor management VIF, matched by the m01_sup01_mgmt group."
 }
 
-variable "m01_sup01_ctrl_plane_vm" {
-  type        = string
-  description = "Display name of the Supervisor control plane VM whose management network adapter is tagged with m01_sup01_mgmt_vif_tag."
-}
-
-variable "m01_sup01_mgmt_vpc" {
-  type        = string
-  description = "Display name of the VPC containing the subnet the Supervisor control plane VM's management network adapter is attached to."
-}
-
-variable "m01_sup01_mgmt_subnet" {
-  type        = string
-  description = "Display name of the VPC subnet the Supervisor control plane VM's management network adapter is attached to."
-}
-
-variable "m01_sup01_mgmt_project_id" {
-  type        = string
-  description = "ID of the NSX Project (e.g. \"system\") containing the Supervisor control plane VM and its management segment."
-}
-
 variable "cci_ns_controller_manager" {
   type        = string
   description = "VM name prefix of the Cloud Consumption Interface namespace controller manager, matched by the cci_ns_controller_manager group."
