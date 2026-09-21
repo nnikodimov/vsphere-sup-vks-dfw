@@ -1,10 +1,10 @@
-resource "nsxt_policy_security_policy" "prod01_9lqzy_ns_policy" {
-  display_name    = "prod01-9lqzy Namespace Policy"
-  category        = "Environment"
+resource "nsxt_policy_security_policy" "vks01_cluster_policy" {
+  display_name    = "vks01-cluster Policy"
+  category        = "Application"
   locked          = false
   stateful        = true
   tcp_strict      = true
-  scope           = [nsxt_policy_group.prod01_9lqzy_ns.path]
+  scope           = [nsxt_policy_group.vks01_segment.path]
   sequence_number = 1
 
   dynamic "context" {
@@ -15,9 +15,9 @@ resource "nsxt_policy_security_policy" "prod01_9lqzy_ns_policy" {
   }
 
   rule {
-    display_name       = "Intra Namespace (IN/OUT)"
-    source_groups      = [nsxt_policy_group.prod01_9lqzy_ns.path]
-    destination_groups = [nsxt_policy_group.prod01_9lqzy_ns.path]
+    display_name       = "Intra Cluster (IN/OUT)"
+    source_groups      = [nsxt_policy_group.vks01_segment.path]
+    destination_groups = [nsxt_policy_group.vks01_segment.path]
     action             = "ALLOW"
     direction          = "IN_OUT"
     logged             = false
@@ -38,17 +38,17 @@ resource "nsxt_policy_security_policy" "prod01_9lqzy_ns_policy" {
   }
 
   rule {
-    display_name = "Namespace Outbound (OUT)"
+    display_name = "Cluster Outbound (OUT)"
     action       = "ALLOW"
     direction    = "OUT"
     logged       = false
   }
 
   rule {
-    display_name = "Namespace Lockdown (IN/OUT)"
+    display_name = "Cluster Lockdown (IN/OUT)"
     action       = "DROP"
     direction    = "IN_OUT"
     logged       = true
-    log_label    = "prod01_9lqzy_ns"
+    log_label    = "vks01_cluster"
   }
 }

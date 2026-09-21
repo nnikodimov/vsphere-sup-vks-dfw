@@ -1,6 +1,6 @@
-resource "nsxt_policy_group" "prod01_9lqzy_ns" {
-  nsx_id       = "PROD01_9LQZY_NS"
-  display_name = "prod01-9lqzy"
+resource "nsxt_policy_group" "vks01_segment" {
+  nsx_id       = "VKS01_SEGMENT"
+  display_name = "vks01-cluster"
 
   dynamic "context" {
     for_each = var.nsx_project_id == "default" ? [] : [var.nsx_project_id]
@@ -12,9 +12,9 @@ resource "nsxt_policy_group" "prod01_9lqzy_ns" {
   criteria {
     condition {
       key         = "Tag"
-      member_type = "SegmentPort"
+      member_type = "Segment"
       operator    = "EQUALS"
-      value       = var.ns_tag
+      value       = var.segment_tag
     }
   }
 }

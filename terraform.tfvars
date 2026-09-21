@@ -36,6 +36,6 @@ m01_sup01_api_clients  = ["192.168.110.10", "192.168.110.11"]
 transit_gateway_path   = "/orgs/default/projects/system/transit-gateways/default--65edfd73-f88d-480a-8065-d8779e7e465a"
 prj_ext_ip_block_cidrs = ["192.168.4.0/22", "192.168.8.0/22", "192.168.16.0/22", "192.168.20.0/22"]
 
-alpha_project_name  = "alpha"
 prod01_9lqzy_ns_tag = "nsx-op/vm_namespace|prod01-9lqzy"
 vpc_lb_snat_cidr    = "100.64.32.0/24"
+vks01_segment_tag   = "nsx-op/subnetset_name|vks01"

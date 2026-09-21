@@ -156,7 +156,7 @@ variable "vks_cluster_tag" {
 
 variable "nsx_project_id" {
   type        = string
-  description = "ID of the NSX Project the Supervisor API groups and gateway firewall policy are created in (e.g. \"default\")."
+  description = "ID of the NSX Project the Supervisor API, vSphere Namespace isolation, and VKS cluster isolation groups/policies are created in (e.g. \"default\")."
 }
 
 variable "m01_sup01_api_clients" {
@@ -174,11 +174,6 @@ variable "prj_ext_ip_block_cidrs" {
   description = "CIDR blocks allowed to reach the Kubernetes API (TCP/6443) through the Transit Gateway firewall, matched by the prj-ext-ip-block group."
 }
 
-variable "alpha_project_name" {
-  type        = string
-  description = "Display name of the NSX Project the vSphere Namespace isolation group is created in (e.g. \"alpha\"), looked up to resolve its project ID."
-}
-
 variable "prod01_9lqzy_ns_tag" {
   type        = string
   description = "SegmentPort tag (\"scope|value\") applied to the prod01-9lqzy vSphere Namespace's ports, matched by the prod01-9lqzy group."
@@ -186,5 +181,10 @@ variable "prod01_9lqzy_ns_tag" {
 
 variable "vpc_lb_snat_cidr" {
   type        = string
-  description = "CIDR allowed inbound to the prod01-9lqzy namespace as the VPC load balancer's SNAT range, matched by the vpc-lb-snat group."
+  description = "CIDR allowed inbound to the prod01-9lqzy namespace and vks01-cluster as the VPC load balancer's SNAT range, matched by the vpc-lb-snat group in each module."
+}
+
+variable "vks01_segment_tag" {
+  type        = string
+  description = "Segment tag (\"scope|value\") applied to the vks01 cluster's subnet segment, matched by the vks01-cluster group."
 }

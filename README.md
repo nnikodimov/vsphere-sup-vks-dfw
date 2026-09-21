@@ -32,6 +32,7 @@ harbor/                 locks down the Harbor registry nodes
 vks-control-plane/      locks down VKS cluster control-plane traffic
 supervisor-api/         Transit Gateway firewall policy for the Supervisor API FQDN
 vsphere-ns-isolation/   NSX Project group for a vSphere Namespace, by SegmentPort tag
+vks-cluster-isolation/  NSX Project group for a VKS cluster's subnet segment, by Segment tag
 ```
 
 Every top-level directory besides the root files is a child module with no
@@ -102,6 +103,7 @@ terraform apply -target=module.harbor
 terraform apply -target=module.vks-control-plane
 terraform apply -target=module.supervisor-api
 terraform apply -target=module.vsphere-ns-isolation
+terraform apply -target=module.vks-cluster-isolation
 ```
 
 `-target` still evaluates the whole configuration graph, so it will pull in
