@@ -168,3 +168,8 @@ variable "transit_gateway_path" {
   type        = string
   description = "NSX policy path of the Transit Gateway the Supervisor API gateway firewall policy rules are scoped to, e.g. \"/orgs/default/projects/system/transit-gateways/default--<uuid>\"."
 }
+
+variable "prj_ext_ip_block_cidrs" {
+  type        = list(string)
+  description = "CIDR blocks allowed to reach the Kubernetes API (TCP/6443) through the Transit Gateway firewall, matched by the prj-ext-ip-block group."
+}

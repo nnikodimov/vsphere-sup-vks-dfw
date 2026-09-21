@@ -81,4 +81,5 @@ module "supervisor-api" {
   transit_gateway_path = var.transit_gateway_path
   api_clients          = var.m01_sup01_api_clients
   api_fqdn_ip          = var.m01_sup01_api
+  allowlist_cidrs      = var.prj_ext_ip_block_cidrs
 }

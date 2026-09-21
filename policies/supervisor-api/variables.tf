@@ -15,5 +15,10 @@ variable "api_clients" {
 
 variable "api_fqdn_ip" {
   type        = string
-  description = "IP address the m01-sup01.vcf01.ans.lab FQDN resolves to, matched by the FQDN-named destination group."
+  description = "IP address the m01-sup01.vcf01.ans.lab FQDN resolves to, matched by the m01-sup01-api-lb destination group."
+}
+
+variable "allowlist_cidrs" {
+  type        = list(string)
+  description = "CIDR blocks allowed to reach the Kubernetes API (TCP/6443) through the Transit Gateway firewall, matched by the prj-ext-ip-block group."
 }
