@@ -1,12 +1,13 @@
+data "nsxt_policy_project" "this" {
+  display_name = var.nsx_project_name
+}
+
 resource "nsxt_policy_group" "prod01_9lqzy_ns" {
   nsx_id       = "PROD01_9LQZY_NS"
   display_name = "prod01-9lqzy"
 
-  dynamic "context" {
-    for_each = var.nsx_project_id == "default" ? [] : [var.nsx_project_id]
-    content {
-      project_id = context.value
-    }
+  context {
+    project_id = data.nsxt_policy_project.this.id
   }
 
   criteria {
@@ -24,11 +25,8 @@ resource "nsxt_policy_group" "vpc_lb_snat" {
   display_name = "vpc-lb-snat"
   group_type   = "IPAddress"
 
-  dynamic "context" {
-    for_each = var.nsx_project_id == "default" ? [] : [var.nsx_project_id]
-    content {
-      project_id = context.value
-    }
+  context {
+    project_id = data.nsxt_policy_project.this.id
   }
 
   criteria {

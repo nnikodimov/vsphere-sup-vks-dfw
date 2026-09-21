@@ -174,9 +174,9 @@ variable "prj_ext_ip_block_cidrs" {
   description = "CIDR blocks allowed to reach the Kubernetes API (TCP/6443) through the Transit Gateway firewall, matched by the prj-ext-ip-block group."
 }
 
-variable "alpha_project_id" {
+variable "alpha_project_name" {
   type        = string
-  description = "ID of the NSX Project the vSphere Namespace isolation group is created in (e.g. \"alpha\")."
+  description = "Display name of the NSX Project the vSphere Namespace isolation group is created in (e.g. \"alpha\"), looked up to resolve its project ID."
 }
 
 variable "prod01_9lqzy_ns_tag" {

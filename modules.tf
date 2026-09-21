@@ -87,7 +87,7 @@ module "supervisor-api" {
 module "vsphere-ns-isolation" {
   source = "./vsphere-ns-isolation"
 
-  nsx_project_id   = var.alpha_project_id
+  nsx_project_name = var.alpha_project_name
   ns_tag           = var.prod01_9lqzy_ns_tag
   vpc_lb_snat_cidr = var.vpc_lb_snat_cidr
 }

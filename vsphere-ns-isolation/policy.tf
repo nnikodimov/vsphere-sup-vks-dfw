@@ -7,11 +7,8 @@ resource "nsxt_policy_security_policy" "prod01_9lqzy_ns_policy" {
   scope           = [nsxt_policy_group.prod01_9lqzy_ns.path]
   sequence_number = 1
 
-  dynamic "context" {
-    for_each = var.nsx_project_id == "default" ? [] : [var.nsx_project_id]
-    content {
-      project_id = context.value
-    }
+  context {
+    project_id = data.nsxt_policy_project.this.id
   }
 
   rule {

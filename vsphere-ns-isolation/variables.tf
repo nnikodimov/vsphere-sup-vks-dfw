@@ -1,6 +1,6 @@
-variable "nsx_project_id" {
+variable "nsx_project_name" {
   type        = string
-  description = "ID of the NSX Project the vSphere Namespace isolation group is created in (e.g. \"alpha\")."
+  description = "Display name of the NSX Project the vSphere Namespace isolation group is created in (e.g. \"alpha\"), looked up to resolve its project ID."
 }
 
 variable "ns_tag" {
