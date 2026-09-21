@@ -129,6 +129,11 @@ variable "m01_sup01_mgmt_segment" {
   description = "Display name of the segment the Supervisor control plane VM's management network adapter is attached to."
 }
 
+variable "m01_sup01_mgmt_project_id" {
+  type        = string
+  description = "ID of the NSX Project (e.g. \"system\") containing the Supervisor control plane VM and its management segment."
+}
+
 variable "cci_ns_controller_manager" {
   type        = string
   description = "VM name prefix of the Cloud Consumption Interface namespace controller manager, matched by the cci_ns_controller_manager group."
