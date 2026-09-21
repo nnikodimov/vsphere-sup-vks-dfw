@@ -32,7 +32,7 @@ module "foundation" {
 }
 
 module "infrastructure" {
-  source = "./policies/infrastructure"
+  source = "./infrastructure"
 
   groups   = module.foundation.group_paths
   services = module.foundation.service_paths
@@ -40,42 +40,42 @@ module "infrastructure" {
 }
 
 module "supervisor-mgmt" {
-  source = "./policies/supervisor-mgmt"
+  source = "./supervisor-mgmt"
 
   groups   = module.foundation.group_paths
   services = module.foundation.service_paths
 }
 
 module "supervisor-wld" {
-  source = "./policies/supervisor-wld"
+  source = "./supervisor-wld"
 
   groups   = module.foundation.group_paths
   services = module.foundation.service_paths
 }
 
 module "supervisor-svc" {
-  source = "./policies/supervisor-svc"
+  source = "./supervisor-svc"
 
   groups   = module.foundation.group_paths
   services = module.foundation.service_paths
 }
 
 module "harbor" {
-  source = "./policies/harbor"
+  source = "./harbor"
 
   groups   = module.foundation.group_paths
   services = module.foundation.service_paths
 }
 
 module "vks" {
-  source = "./policies/vks"
+  source = "./vks"
 
   groups   = module.foundation.group_paths
   services = module.foundation.service_paths
 }
 
 module "supervisor-api" {
-  source = "./policies/supervisor-api"
+  source = "./supervisor-api"
 
   nsx_project_id       = var.nsx_project_id
   transit_gateway_path = var.transit_gateway_path
@@ -85,7 +85,7 @@ module "supervisor-api" {
 }
 
 module "vsphere-ns-isolation" {
-  source = "./policies/vsphere-ns-isolation"
+  source = "./vsphere-ns-isolation"
 
   nsx_project_id   = var.alpha_project_id
   ns_tag           = var.prod01_9lqzy_ns_tag

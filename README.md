@@ -24,23 +24,23 @@ variables.tf           all input variables
 terraform.tfvars       committed, non-secret values
 modules.tf              wires the modules below together
 foundation/             groups, services, context profiles (shared building blocks)
-policies/
-  infrastructure/     DNS/NTP/DHCP allow rules, unscoped (applies firewall-wide)
-  supervisor-mgmt/    locks down the Supervisor management network
-  supervisor-wld/     locks down the Supervisor workload network
-  supervisor-svc/     locks down auto-attach/CCI/configuration/metrics services
-  harbor/             locks down the Harbor registry nodes
-  vks/                locks down VKS cluster control-plane traffic
-  supervisor-api/     Transit Gateway firewall policy for the Supervisor API FQDN
-  vsphere-ns-isolation/ NSX Project group for a vSphere Namespace, by SegmentPort tag
+infrastructure/         DNS/NTP/DHCP allow rules, unscoped (applies firewall-wide)
+supervisor-mgmt/        locks down the Supervisor management network
+supervisor-wld/         locks down the Supervisor workload network
+supervisor-svc/         locks down auto-attach/CCI/configuration/metrics services
+harbor/                 locks down the Harbor registry nodes
+vks/                    locks down VKS cluster control-plane traffic
+supervisor-api/         Transit Gateway firewall policy for the Supervisor API FQDN
+vsphere-ns-isolation/   NSX Project group for a vSphere Namespace, by SegmentPort tag
 ```
 
-Each directory under `foundation/` and `policies/` is a child module with no
+Every top-level directory besides the root files is a child module with no
 provider or backend configuration of its own — those live only in the root
-`main.tf`. The `policies/*` modules take the groups/services/context-profiles
-they need as input variables (`groups`, `services`, `profiles`), wired in
-`modules.tf` from `module.foundation`'s outputs, rather than reading them via
-a `terraform_remote_state` data source.
+`main.tf`. The distributed-firewall modules (`infrastructure`, `supervisor-mgmt`,
+`supervisor-wld`, `supervisor-svc`, `harbor`, `vks`) take the groups/services/
+context-profiles they need as input variables (`groups`, `services`, `profiles`),
+wired in `modules.tf` from `module.foundation`'s outputs, rather than reading
+them via a `terraform_remote_state` data source.
 
 `infrastructure` has no `scope`, so its DNS/NTP/DHCP allow rules apply to
 every group protected by any of the other policies. Its `sequence_number` (1)
@@ -90,7 +90,7 @@ terraform apply
 ```
 
 Or target a single layer by its module name — `foundation` must exist before
-any `policies/*` module, since they all depend on its outputs:
+any of the other modules, since they all depend on its outputs:
 
 ```
 terraform apply -target=module.foundation
