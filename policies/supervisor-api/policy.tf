@@ -6,8 +6,11 @@ resource "nsxt_policy_service" "tcp_6443" {
   display_name = "TCP-6443"
   description  = "Kubernetes API"
 
-  context {
-    project_id = var.nsx_project_id
+  dynamic "context" {
+    for_each = var.nsx_project_id == "default" ? [] : [var.nsx_project_id]
+    content {
+      project_id = context.value
+    }
   }
 
   l4_port_set_entry {
@@ -21,8 +24,11 @@ resource "nsxt_policy_group" "m01_sup01_api_clients" {
   display_name = "m01-sup01-api-clients"
   group_type   = "IPAddress"
 
-  context {
-    project_id = var.nsx_project_id
+  dynamic "context" {
+    for_each = var.nsx_project_id == "default" ? [] : [var.nsx_project_id]
+    content {
+      project_id = context.value
+    }
   }
 
   criteria {
@@ -37,8 +43,11 @@ resource "nsxt_policy_group" "m01_sup01_api_fqdn" {
   display_name = "m01-sup01-api-lb"
   group_type   = "IPAddress"
 
-  context {
-    project_id = var.nsx_project_id
+  dynamic "context" {
+    for_each = var.nsx_project_id == "default" ? [] : [var.nsx_project_id]
+    content {
+      project_id = context.value
+    }
   }
 
   criteria {
@@ -53,8 +62,11 @@ resource "nsxt_policy_group" "prj_ext_ip_block" {
   display_name = "prj-ext-ip-block"
   group_type   = "IPAddress"
 
-  context {
-    project_id = var.nsx_project_id
+  dynamic "context" {
+    for_each = var.nsx_project_id == "default" ? [] : [var.nsx_project_id]
+    content {
+      project_id = context.value
+    }
   }
 
   criteria {
@@ -72,8 +84,11 @@ resource "nsxt_policy_gateway_policy" "supervisor_api_policy" {
   tcp_strict      = true
   sequence_number = 1
 
-  context {
-    project_id = var.nsx_project_id
+  dynamic "context" {
+    for_each = var.nsx_project_id == "default" ? [] : [var.nsx_project_id]
+    content {
+      project_id = context.value
+    }
   }
 
   rule {
