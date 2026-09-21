@@ -67,11 +67,16 @@ module "harbor" {
   services = module.foundation.service_paths
 }
 
-module "vks" {
-  source = "./vks"
+module "vks-control-plane" {
+  source = "./vks-control-plane"
 
   groups   = module.foundation.group_paths
   services = module.foundation.service_paths
+}
+
+moved {
+  from = module.vks
+  to   = module.vks-control-plane
 }
 
 module "supervisor-api" {

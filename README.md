@@ -29,7 +29,7 @@ supervisor-mgmt/        locks down the Supervisor management network
 supervisor-wld/         locks down the Supervisor workload network
 supervisor-svc/         locks down auto-attach/CCI/configuration/metrics services
 harbor/                 locks down the Harbor registry nodes
-vks/                    locks down VKS cluster control-plane traffic
+vks-control-plane/      locks down VKS cluster control-plane traffic
 supervisor-api/         Transit Gateway firewall policy for the Supervisor API FQDN
 vsphere-ns-isolation/   NSX Project group for a vSphere Namespace, by SegmentPort tag
 ```
@@ -37,7 +37,7 @@ vsphere-ns-isolation/   NSX Project group for a vSphere Namespace, by SegmentPor
 Every top-level directory besides the root files is a child module with no
 provider or backend configuration of its own — those live only in the root
 `main.tf`. The distributed-firewall modules (`infrastructure`, `supervisor-mgmt`,
-`supervisor-wld`, `supervisor-svc`, `harbor`, `vks`) take the groups/services/
+`supervisor-wld`, `supervisor-svc`, `harbor`, `vks-control-plane`) take the groups/services/
 context-profiles they need as input variables (`groups`, `services`, `profiles`),
 wired in `modules.tf` from `module.foundation`'s outputs, rather than reading
 them via a `terraform_remote_state` data source.
@@ -99,7 +99,7 @@ terraform apply -target=module.supervisor-mgmt
 terraform apply -target=module.supervisor-wld
 terraform apply -target=module.supervisor-svc
 terraform apply -target=module.harbor
-terraform apply -target=module.vks
+terraform apply -target=module.vks-control-plane
 terraform apply -target=module.supervisor-api
 terraform apply -target=module.vsphere-ns-isolation
 ```
