@@ -173,3 +173,18 @@ variable "prj_ext_ip_block_cidrs" {
   type        = list(string)
   description = "CIDR blocks allowed to reach the Kubernetes API (TCP/6443) through the Transit Gateway firewall, matched by the prj-ext-ip-block group."
 }
+
+variable "alpha_project_id" {
+  type        = string
+  description = "ID of the NSX Project the vSphere Namespace isolation group is created in (e.g. \"alpha\")."
+}
+
+variable "prod01_9lqzy_ns_tag" {
+  type        = string
+  description = "SegmentPort tag (\"scope|value\") applied to the prod01-9lqzy vSphere Namespace's ports, matched by the prod01-9lqzy group."
+}
+
+variable "vpc_lb_snat_cidr" {
+  type        = string
+  description = "CIDR allowed inbound to the prod01-9lqzy namespace as the VPC load balancer's SNAT range, matched by the vpc-lb-snat group."
+}

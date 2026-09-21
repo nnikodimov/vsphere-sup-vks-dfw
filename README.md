@@ -32,6 +32,7 @@ policies/
   harbor/             locks down the Harbor registry nodes
   vks/                locks down VKS cluster control-plane traffic
   supervisor-api/     Transit Gateway firewall policy for the Supervisor API FQDN
+  vsphere-ns-isolation/ NSX Project group for a vSphere Namespace, by SegmentPort tag
 ```
 
 Each directory under `foundation/` and `policies/` is a child module with no
@@ -100,6 +101,7 @@ terraform apply -target=module.supervisor-svc
 terraform apply -target=module.harbor
 terraform apply -target=module.vks
 terraform apply -target=module.supervisor-api
+terraform apply -target=module.vsphere-ns-isolation
 ```
 
 `-target` still evaluates the whole configuration graph, so it will pull in

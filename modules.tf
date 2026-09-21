@@ -83,3 +83,11 @@ module "supervisor-api" {
   api_fqdn_ip          = var.m01_sup01_api
   allowlist_cidrs      = var.prj_ext_ip_block_cidrs
 }
+
+module "vsphere-ns-isolation" {
+  source = "./policies/vsphere-ns-isolation"
+
+  nsx_project_id   = var.alpha_project_id
+  ns_tag           = var.prod01_9lqzy_ns_tag
+  vpc_lb_snat_cidr = var.vpc_lb_snat_cidr
+}
