@@ -23,9 +23,15 @@ resource "nsxt_policy_security_policy" "prod01_9lqzy_ns_policy" {
   rule {
     display_name  = "VPC LB SNAT Inbound (IN)"
     source_groups = [nsxt_policy_group.vpc_lb_snat.path]
-    action        = "ALLOW"
-    direction     = "IN"
-    logged        = false
+    services = [
+      data.nsxt_policy_service.https.path,
+      nsxt_policy_service.tcp_6443.path,
+      nsxt_policy_service.tcp_30000_32767.path,
+      nsxt_policy_service.tcp_61000_62000.path,
+    ]
+    action    = "ALLOW"
+    direction = "IN"
+    logged    = false
   }
 
   rule {
