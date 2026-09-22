@@ -143,7 +143,7 @@ resource "nsxt_policy_group" "m01_sup01_mgmt" {
   criteria {
     condition {
       key         = "Tag"
-      member_type = "DVPort"
+      member_type = "SegmentPort"
       operator    = "EQUALS"
       value       = var.m01_sup01_mgmt_vif_tag
     }
