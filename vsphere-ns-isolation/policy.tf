@@ -1,5 +1,5 @@
 data "nsxt_policy_group" "alpha_default" {
-  id = "PROJECT-${var.alpha_project_id}-default"
+  display_name = "PROJECT-${var.alpha_project_id}-default"
 
   context {
     project_id = var.alpha_project_id
