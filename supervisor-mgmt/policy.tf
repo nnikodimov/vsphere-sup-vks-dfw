@@ -14,7 +14,7 @@ resource "nsxt_policy_security_policy" "m01_sup01_mgmt_policy" {
 
   rule {
     display_name       = "VCF Management (OUT)"
-    destination_groups = [local.groups["m01_vc"], local.groups["m01_nsx"], local.groups["m01_avi"], local.groups["vcf_a"], local.groups["vcfops_cp"]]
+    destination_groups = [local.groups["m01_vc"], local.groups["m01_nsx"], local.groups["m01_avi"], local.groups["vcf_a"], local.groups["vcfops_cp"], nsxt_policy_group.vcfsvc.path]
     services           = [local.services["https"]]
     action             = "ALLOW"
     direction          = "OUT"

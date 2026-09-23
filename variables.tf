@@ -39,6 +39,11 @@ variable "vcfops_cp" {
   description = "VM name prefix of the VCF Operations control plane appliance(s), matched by the vcfops_cp group."
 }
 
+variable "vcfsvc" {
+  type        = string
+  description = "VM name prefix of the VCF Services appliance(s), matched by the vcfsvc group."
+}
+
 variable "m01_vc01" {
   type        = string
   description = "VM name prefix of the management domain vCenter Server, matched by the m01_vc group."

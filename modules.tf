@@ -44,6 +44,7 @@ module "supervisor-mgmt" {
 
   groups   = module.foundation.group_paths
   services = module.foundation.service_paths
+  vcfsvc   = var.vcfsvc
 }
 
 module "supervisor-wld" {
