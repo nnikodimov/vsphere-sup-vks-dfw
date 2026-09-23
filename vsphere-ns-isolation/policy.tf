@@ -1,5 +1,13 @@
+data "nsxt_policy_group" "alpha_default" {
+  id = "PROJECT-${var.alpha_project_id}-default"
+
+  context {
+    project_id = var.alpha_project_id
+  }
+}
+
 resource "nsxt_policy_security_policy" "prod01_9lqzy_ns_policy" {
-  display_name    = "prod01-9lqzy Namespace Policy"
+  display_name    = "Prod01-9lqzy Namespace Policy"
   category        = "Environment"
   locked          = false
   stateful        = true
@@ -26,29 +34,58 @@ resource "nsxt_policy_security_policy" "prod01_9lqzy_ns_policy" {
   rule {
     display_name  = "VPC LB SNAT Inbound (IN)"
     source_groups = [nsxt_policy_group.vpc_lb_snat.path]
-    services = [
-      data.nsxt_policy_service.https.path,
-      nsxt_policy_service.tcp_6443.path,
-      nsxt_policy_service.tcp_30000_32767.path,
-      nsxt_policy_service.tcp_61000_62000.path,
-    ]
-    action    = "ALLOW"
-    direction = "IN"
-    logged    = false
+    action        = "ALLOW"
+    direction     = "IN"
+    logged        = false
   }
 
   rule {
-    display_name = "Namespace Outbound (OUT)"
-    action       = "ALLOW"
-    direction    = "OUT"
-    logged       = false
+    display_name  = "Namespace Lockdown (IN)"
+    source_groups = [data.nsxt_policy_group.alpha_default.path]
+    action        = "DROP"
+    direction     = "IN"
+    logged        = true
+  }
+}
+
+resource "nsxt_policy_security_policy" "dev01_h28ct_ns_policy" {
+  display_name    = "Dev01-h28ct Namespace Policy"
+  category        = "Environment"
+  locked          = false
+  stateful        = true
+  tcp_strict      = true
+  scope           = [nsxt_policy_group.dev01_h28ct_ns.path]
+  sequence_number = 11
+
+  dynamic "context" {
+    for_each = var.nsx_project_id == "default" ? [] : [var.nsx_project_id]
+    content {
+      project_id = context.value
+    }
   }
 
   rule {
-    display_name = "Namespace Lockdown (IN/OUT)"
-    action       = "DROP"
-    direction    = "IN_OUT"
-    logged       = true
-    log_label    = "prod01_9lqzy_ns"
+    display_name       = "Intra Namespace (IN/OUT)"
+    source_groups      = [nsxt_policy_group.dev01_h28ct_ns.path]
+    destination_groups = [nsxt_policy_group.dev01_h28ct_ns.path]
+    action             = "ALLOW"
+    direction          = "IN_OUT"
+    logged             = false
+  }
+
+  rule {
+    display_name  = "VPC LB SNAT Inbound (IN)"
+    source_groups = [nsxt_policy_group.vpc_lb_snat.path]
+    action        = "ALLOW"
+    direction     = "IN"
+    logged        = false
+  }
+
+  rule {
+    display_name  = "Namespace Lockdown (IN)"
+    source_groups = [data.nsxt_policy_group.alpha_default.path]
+    action        = "DROP"
+    direction     = "IN"
+    logged        = true
   }
 }

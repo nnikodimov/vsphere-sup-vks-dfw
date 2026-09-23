@@ -1,11 +1,11 @@
 resource "nsxt_policy_security_policy" "vks01_cluster_policy" {
-  display_name    = "vks01-cluster Policy"
+  display_name    = "VKS01-cluster Policy"
   category        = "Environment"
   locked          = false
   stateful        = true
   tcp_strict      = true
   scope           = [nsxt_policy_group.vks01_segment.path]
-  sequence_number = 11
+  sequence_number = 12
 
   dynamic "context" {
     for_each = var.nsx_project_id == "default" ? [] : [var.nsx_project_id]

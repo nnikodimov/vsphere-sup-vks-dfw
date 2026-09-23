@@ -92,9 +92,11 @@ module "supervisor-api" {
 module "vsphere-ns-isolation" {
   source = "./vsphere-ns-isolation"
 
-  nsx_project_id   = var.nsx_project_id
-  ns_tag           = var.prod01_9lqzy_ns_tag
-  vpc_lb_snat_cidr = var.vpc_lb_snat_cidr
+  nsx_project_id     = var.nsx_project_id
+  ns_tag             = var.prod01_9lqzy_ns_tag
+  dev01_h28ct_ns_tag = var.dev01_h28ct_ns_tag
+  vpc_lb_snat_cidr   = var.vpc_lb_snat_cidr
+  alpha_project_id   = var.alpha_project_id
 }
 
 module "vks-cluster-isolation" {

@@ -37,5 +37,7 @@ transit_gateway_path   = "/orgs/default/projects/system/transit-gateways/default
 prj_ext_ip_block_cidrs = ["192.168.4.0/22", "192.168.8.0/22", "192.168.16.0/22", "192.168.20.0/22"]
 
 prod01_9lqzy_ns_tag = "nsx-op/vm_namespace|prod01-9lqzy"
+dev01_h28ct_ns_tag  = "nsx-op/vm_namespace|dev01-h28ct"
 vpc_lb_snat_cidr    = "100.64.32.0/24"
 vks01_segment_tag   = "nsx-op/subnetset_name|vks01"
+alpha_project_id    = "6c040b57-1691-47f0-bb9e-e474ee838149"
