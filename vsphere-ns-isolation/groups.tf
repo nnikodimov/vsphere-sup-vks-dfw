@@ -58,3 +58,22 @@ resource "nsxt_policy_group" "vpc_lb_snat" {
     }
   }
 }
+
+resource "nsxt_policy_group" "alpha_vpc_snat" {
+  nsx_id       = "ALPHA_VPC_SNAT"
+  display_name = "alpha-vpc-snat"
+  group_type   = "IPAddress"
+
+  dynamic "context" {
+    for_each = var.nsx_project_id == "default" ? [] : [var.nsx_project_id]
+    content {
+      project_id = context.value
+    }
+  }
+
+  criteria {
+    ipaddress_expression {
+      ip_addresses = ["192.168.16.0", "192.168.20.0"]
+    }
+  }
+}

@@ -41,7 +41,7 @@ resource "nsxt_policy_security_policy" "prod01_9lqzy_ns_policy" {
 
   rule {
     display_name  = "Namespace Lockdown (IN)"
-    source_groups = [data.nsxt_policy_group.alpha_default.path]
+    source_groups = [data.nsxt_policy_group.alpha_default.path, nsxt_policy_group.alpha_vpc_snat.path]
     action        = "DROP"
     direction     = "IN"
     logged        = true
@@ -83,7 +83,7 @@ resource "nsxt_policy_security_policy" "dev01_h28ct_ns_policy" {
 
   rule {
     display_name  = "Namespace Lockdown (IN)"
-    source_groups = [data.nsxt_policy_group.alpha_default.path]
+    source_groups = [data.nsxt_policy_group.alpha_default.path, nsxt_policy_group.alpha_vpc_snat.path]
     action        = "DROP"
     direction     = "IN"
     logged        = true
